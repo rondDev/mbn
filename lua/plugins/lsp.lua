@@ -17,20 +17,40 @@ return {
       },
     },
     opts = {
+      diagnostics = {
+        globals = { "vim" },
+        underline = true,
+        update_in_insert = true,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+          -- prefix = "icons",
+        },
+        severity_sort = true,
+      },
       inlay_hints = { enabled = true },
     },
-    config = function()
+    config = function(_, opts)
       -- Reserve a space in the gutter
       vim.opt.signcolumn = "yes"
 
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
-      local lspconfig_defaults = require("lspconfig").util.default_config
-      lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-        "force",
-        lspconfig_defaults.capabilities,
-        require("blink.cmp").get_lsp_capabilities()
-      )
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+
+      capabilities = vim.tbl_deep_extend("force", capabilities, {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      })
 
       -- This is where you enable features that only work
       -- if there is a language server active in the file
@@ -83,8 +103,8 @@ return {
         },
         handlers = {
           function(server_name)
-            require('lspconfig')[server_name].setup({
-              capabilities = require("blink.cmp").get_lsp_capabilities(),
+            require("lspconfig")[server_name].setup({
+              capabilities = capabilities,
               Utils.on_attach(function(client, buffer)
                 if client.name == "volar" then
                   vim.keymap.set(
@@ -96,9 +116,9 @@ return {
                 end
 
                 vim.api.nvim_buf_create_user_command(buffer, "Format", function(_)
-                  vim.lsp.buf.format({})
+                  require("conform").format({ bufnr = buffer })
                 end, { desc = "LSP: Format current buffer with LSP" })
-              end)
+              end),
             })
           end,
           lua_ls = function()
