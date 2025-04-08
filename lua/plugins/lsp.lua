@@ -9,9 +9,9 @@ return {
       "neovim/nvim-lspconfig",
       "williamboman/mason.nvim",
       {
-        'windwp/nvim-autopairs',
+        "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true
+        config = true,
         -- use opts = {} for passing setup options
         -- this is equivalent to setup({}) function
       },
@@ -53,7 +53,7 @@ return {
       })
 
       require("mason").setup()
-      require("mason-lspconfig").setup {
+      require("mason-lspconfig").setup({
         automatic_installation = true,
         ensure_installed = {
           "astro",
@@ -87,8 +87,12 @@ return {
               capabilities = require("blink.cmp").get_lsp_capabilities(),
               Utils.on_attach(function(client, buffer)
                 if client.name == "volar" then
-                  vim.keymap.set("n", "<leader>gd", ":TypescriptGoToSourceDefinition<cr>",
-                    { silent = true, nowait = true })
+                  vim.keymap.set(
+                    "n",
+                    "<leader>gd",
+                    ":TypescriptGoToSourceDefinition<cr>",
+                    { silent = true, nowait = true }
+                  )
                 end
 
                 vim.api.nvim_buf_create_user_command(buffer, "Format", function(_)
@@ -98,50 +102,48 @@ return {
             })
           end,
           lua_ls = function()
-            require('lspconfig').lua_ls.setup({
+            require("lspconfig").lua_ls.setup({
               settings = {
                 Lua = {
                   hint = {
                     enable = true,
-                  }
-                }
-              }
+                  },
+                },
+              },
             })
           end,
           volar = function()
-            require('lspconfig').volar.setup({})
+            require("lspconfig").volar.setup({})
           end,
           ts_ls = function()
-            local vue_typescript_plugin = require('mason-registry')
-                .get_package('vue-language-server')
-                :get_install_path()
-                .. '/node_modules/@vue/language-server'
-                .. '/node_modules/@vue/typescript-plugin'
+            local vue_typescript_plugin = require("mason-registry")
+              .get_package("vue-language-server")
+              :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
 
-            require('lspconfig').ts_ls.setup({
+            require("lspconfig").ts_ls.setup({
               init_options = {
                 plugins = {
                   {
                     name = "@vue/typescript-plugin",
                     location = vue_typescript_plugin,
-                    languages = { 'javascript', 'typescript', 'vue' }
+                    languages = { "javascript", "typescript", "vue" },
                   },
-                }
+                },
               },
               filetypes = {
-                'javascript',
-                'javascriptreact',
-                'javascript.jsx',
-                'typescript',
-                'typescriptreact',
-                'typescript.tsx',
-                'vue',
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescriptreact",
+                "typescript.tsx",
+                "vue",
               },
             })
           end,
-        }
-      }
-    end
+        },
+      })
+    end,
   },
   {
     "nvimtools/none-ls.nvim",
@@ -157,6 +159,6 @@ return {
     event = "VeryLazy",
     opts = {
       -- your options here
-    }
+    },
   },
 }
