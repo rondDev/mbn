@@ -27,8 +27,23 @@ return {
     },
     opts = {
       ensure_installed = { "comment", "markdown_inline", "regex" },
-      sync_install = false,
-      auto_install = true,
     },
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = { "comment", "markdown_inline", "regex" },
+        sync_install = true,
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+        ignore_install = {},
+        modules = {},
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
   },
 }
