@@ -733,7 +733,12 @@ return {
       -- "echasnovski/mini.pick", -- optional
     },
     -- config = true,
-    opts = {},
+    opts = {
+      -- TODO: Remove this when issue is resolved
+      -- https://github.com/NeogitOrg/neogit/issues/1691
+      -- Related: https://github.com/neovim/neovim/issues/33067
+      disable_signs = true,
+    },
     keys = {
       {
         "<leader>gg",
