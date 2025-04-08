@@ -147,6 +147,9 @@ return {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
+    config = function()
+      require("null-ls").setup({})
+    end,
   },
   {
     "zeioth/garbage-day.nvim",
