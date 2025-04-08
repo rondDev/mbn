@@ -88,7 +88,7 @@ vim.g.gitblame_display_virtual_text = 0
 local components = {
   {
     "mode",
-    seperator = { left = "", right = "" },
+    -- seperator = { left = "", right = "" },
     right_padding = 2,
   },
   branch = {
@@ -201,8 +201,8 @@ return {
         lualine_a = {
           {
             "mode",
-            seperator = { left = "", right = "" },
-            right_padding = 2,
+            -- seperator = { left = "", right = "" },
+            -- right_padding = 2,
           },
         },
         lualine_b = {},
@@ -228,9 +228,9 @@ return {
         },
         lualine_z = {
 
-          { "progress", color = { fg = colors.fg, gui = "bold" } },
+          { "progress" },
 
-          { "location", color = { fg = colors.fg, gui = "bold" } },
+          { "location" },
         },
       },
     },
