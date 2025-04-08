@@ -32,20 +32,69 @@ return {
     "echasnovski/mini.files",
     version = false,
     priority = 100,
-    keys = {
-      "<leader>oo",
-      "<cmd>lua MiniFiles.open()<CR>",
-      "Open file picker",
+    opts = {
+      options = {
+        use_as_default_explorer = false,
+      },
     },
-    config = function()
-      require('mini.files').setup()
-    end
-
+  },
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      columns = {
+        "icon",
+        -- "permissions",
+        -- "size",
+        -- "mtime",
+      },
+      keymaps = {
+        ["g?"] = "actions.show_help",
+        ["<CR>"] = "actions.select",
+        ["<C-s>"] = "actions.select_vsplit",
+        -- ["<C-h>"] = "actions.select_split", -- this is used to navigate left
+        ["<C-t>"] = "actions.select_tab",
+        ["<C-p>"] = "actions.preview",
+        ["<C-c>"] = "actions.close",
+        ["<C-l>"] = "actions.refresh",
+        ["-"] = "actions.parent",
+        ["_"] = "actions.open_cwd",
+        ["`"] = "actions.cd",
+        ["~"] = "actions.tcd",
+        ["gs"] = "actions.change_sort",
+        ["gx"] = "actions.open_external",
+        ["g."] = "actions.toggle_hidden",
+      },
+      use_default_keymaps = false,
+      watch_for_changes = true,
+    },
   },
   {
     "echasnovski/mini.indentscope",
     version = false,
     opts = {},
+  },
+  -- TODO: a
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = { "BufReadPost" },
+    opts = {},
+    keys = {
+      {
+        "<leader>st",
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = "Todo",
+      },
+      {
+        "<leader>sT",
+        function()
+          Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+        end,
+        desc = "Todo/Fix/Fixme",
+      },
+    },
   },
   {
     "folke/snacks.nvim",
