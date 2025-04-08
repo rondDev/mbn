@@ -128,6 +128,12 @@ function M.load_keys()
   map("n", "<leader>q", actions.quit, { desc = "Quit" })
   map("n", "<leader>ts", actions.toggle_sidebar, { desc = "Toggle Sidebar" })
 
+  -- window
+  map({ "n", "t" }, "<leader>wh", actions.change_window_left, { desc = "Move left" })
+  map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
+  map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
+  map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
+
   -- localleader prefixed keys
 end
 return M
