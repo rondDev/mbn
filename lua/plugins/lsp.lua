@@ -61,7 +61,7 @@ return {
           "biome",
           "clangd",
           "cssls",
-          "denols",
+          -- "denols",
           "jsonls",
           "lemminx",
           "lua_ls",
