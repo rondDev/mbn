@@ -6,11 +6,6 @@ local function wrap(f)
   end
 end
 
--- ["<C-h>"] = { "<cmd>NvimTmuxNavigateLeft<CR>", "Move left" },
--- ["<C-l>"] = { "<cmd>NvimTmuxNavigateRight<CR>", "Move right" },
--- ["<C-j>"] = { "<cmd>NvimTmuxNavigateDown<CR>", "Move down" },
--- ["<C-k>"] = { "<cmd>NvimTmuxNavigateUp<CR>", "Move up" },
-
 _G.actions = {
   change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
   change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
