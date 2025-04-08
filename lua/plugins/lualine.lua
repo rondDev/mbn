@@ -83,6 +83,8 @@ local icons = {
   },
 }
 
+vim.g.gitblame_display_virtual_text = 0
+
 local components = {
   {
     "mode",
@@ -118,7 +120,7 @@ local components = {
   },
   lsp = {
     function()
-      local buf_clients = vim.lsp.get_clients { bufnr = 0 }
+      local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
       if #buf_clients == 0 then
         return "LSP Inactive"
       end
@@ -170,8 +172,8 @@ local components = {
   filetype = { "filetype", cond = nil, padding = { left = 1, right = 1 } },
   scrollbar = {
     function()
-      local current_line = vim.fn.line "."
-      local total_lines = vim.fn.line "$"
+      local current_line = vim.fn.line(".")
+      local total_lines = vim.fn.line("$")
       local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
       local line_ratio = current_line / total_lines
       local index = math.ceil(line_ratio * #chars)
@@ -196,35 +198,39 @@ return {
     },
     opts = {
       sections = {
-        lualine_a = { {
-          "mode",
-          seperator = { left = "", right = "" },
-          right_padding = 2,
-        } },
+        lualine_a = {
+          {
+            "mode",
+            seperator = { left = "", right = "" },
+            right_padding = 2,
+          },
+        },
         lualine_b = {},
         lualine_c = {},
 
         lualine_x = { components.diagnostics, components.lsp, components.spaces, components.filetype },
-        lualine_y = { {
-          "diff",
-          -- Is it me or the symbol for modified us really weird
-          symbols = {
-            added = icons.git.added,
-            modified = icons.git.modified,
-            removed = icons.git.removed,
+        lualine_y = {
+          {
+            "diff",
+            -- Is it me or the symbol for modified us really weird
+            symbols = {
+              added = icons.git.added,
+              modified = icons.git.modified,
+              removed = icons.git.removed,
+            },
+            diff_color = {
+              added = { fg = colors.green },
+              modified = { fg = colors.orange },
+              removed = { fg = colors.red },
+            },
+            -- cond = conditions.hide_in_width,
           },
-          diff_color = {
-            added = { fg = colors.green },
-            modified = { fg = colors.orange },
-            removed = { fg = colors.red },
-          },
-          -- cond = conditions.hide_in_width,
-        } },
+        },
         lualine_z = {
 
           { "progress", color = { fg = colors.fg, gui = "bold" } },
 
-          { "location", color = { fg = colors.fg, gui = "bold" } }
+          { "location", color = { fg = colors.fg, gui = "bold" } },
         },
       },
     },
