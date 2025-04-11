@@ -27,11 +27,11 @@ _G.actions = {
   repeat_last_search_center = "nzz",
   repeat_last_search_center_reverse = "Nzz",
 
-  replace_under_cursor = function()
+  replace_under_cursor = wrap(function()
     local c = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
     local keys = vim.api.nvim_replace_termcodes(c, true, false, true)
     vim.api.nvim_feedkeys(keys, "n", false)
-  end,
+  end),
 
   resize_equal_buffer_splits = "<C-w>=",
 
