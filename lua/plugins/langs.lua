@@ -1,12 +1,14 @@
 return {
-  -- emmet for neovim
+  -- -- emmet for neovim
+  -- {
+  --   "olrtg/nvim-emmet",
+  --   opts = {},
+  -- },
+  -- Documentation generation
   {
-    "olrtg/nvim-emmet",
-    keys = {
-      { "<leader>xe", function()
-        require("nvim-emmet").wrap_with_abbreviation()
-      end }
-    },
-    opts = {},
-  }
+    "danymat/neogen",
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
+  },
 }
