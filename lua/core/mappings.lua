@@ -79,6 +79,30 @@ _G.actions = {
       border = "rounded",
     })
   end),
+
+  lsp_signature_help = vim.lsp.buf.signature_help,
+  lsp_code_action = vim.lsp.buf.code_action,
+  lsp_rename = vim.lsp.buf.rename,
+
+  neogit_open = "<cmd>Neogit<cr>",
+  neogit_open_float = wrap(function()
+    local s = require("neogit")
+    if not s then
+      print("neogit could not be found")
+      return
+    end
+    s.open({ kind = "float" })
+  end),
+  neogit_open_commit = "<cmd>Neogit commit<cr>",
+
+  generate_docs = wrap(function()
+    local s = require("neogen")
+    if not s then
+      print("neogen could not be found")
+      return
+    end
+    s.generate()
+  end),
 }
 
 function M.load_keys()
@@ -124,6 +148,16 @@ function M.load_keys()
   map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
   map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
   map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
+  -- lsp
+  map("n", "<leader>ca", actions.lsp_code_action, { desc = "Code Action" })
+  map("n", "<leader>cr", actions.lsp_rename, { desc = "Code Rename" })
+  map("n", "gK", actions.lsp_signature_help, { desc = "Go to signature help" })
+  map("n", "<leader>cd", actions.generate_docs, { desc = "Generate docs" })
+
+  -- git
+  map("n", "<leader>gg", actions.neogit_open, { desc = "Open Neogit" })
+  map("n", "<leader>gf", actions.neogit_open_float, { desc = "Open Neogit (float)" })
+  map("n", "<leader>gc", actions.neogit_open_commit, { desc = "Open Neogit (commit)" })
 
   -- localleader prefixed keys
 end
