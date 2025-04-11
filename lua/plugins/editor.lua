@@ -728,8 +728,8 @@ return {
       "sindrets/diffview.nvim", -- optional - Diff integration
 
       -- Only one of these is needed.
-      -- "nvim-telescope/telescope.nvim", -- optional
-      "ibhagwan/fzf-lua", -- optional
+      "nvim-telescope/telescope.nvim", -- optional
+      -- "ibhagwan/fzf-lua", -- optional
       -- "echasnovski/mini.pick", -- optional
     },
     -- config = true,
@@ -738,13 +738,6 @@ return {
       -- https://github.com/NeogitOrg/neogit/issues/1691
       -- Related: https://github.com/neovim/neovim/issues/33067
       disable_signs = true,
-    },
-    keys = {
-      {
-        "<leader>gg",
-        "<cmd>Neogit<CR>",
-        desc = "NeoGit",
-      },
     },
   },
 
