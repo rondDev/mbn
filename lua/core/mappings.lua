@@ -144,10 +144,14 @@ function M.load_keys()
   map("n", "<leader>ts", actions.toggle_sidebar, { desc = "Toggle Sidebar" })
 
   -- window
-  map({ "n", "t" }, "<leader>wh", actions.change_window_left)
-  map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
-  map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
-  map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
+  -- map({ "n", "t" }, "<leader>wh", actions.change_window_left, { desc = "Move left" })
+  -- map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
+  -- map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
+  -- map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
+  map({ "n", "t" }, "<leader>wv", actions.split_window_vertically, { desc = "Split Window Vertically" })
+  map({ "n", "t" }, "<leader>wh", actions.split_window_horizontally, { desc = "Split Window Horizontally" })
+  map({ "n", "t" }, "<leader>wq", actions.window_quit, { desc = "Quit Window" })
+
   -- lsp
   map("n", "<leader>ca", actions.lsp_code_action, { desc = "Code Action" })
   map("n", "<leader>cr", actions.lsp_rename, { desc = "Code Rename" })
