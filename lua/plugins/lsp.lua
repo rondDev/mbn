@@ -82,6 +82,7 @@ return {
           "clangd",
           "cssls",
           -- "denols",
+          "emmet_ls",
           "jsonls",
           "lemminx",
           "lua_ls",
