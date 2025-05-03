@@ -61,6 +61,14 @@ _G.actions = {
     s.toggle()
   end),
 
+  toggle_terminal = wrap(function()
+    local s = require("toggleterm")
+    if not s then
+      print("toggleterm could not be found")
+      return
+    end
+  end),
+
   move_line_up = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', -- opts = { expr = true }
   move_line_down = 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', -- opts = { expr = true }
 
@@ -103,6 +111,8 @@ _G.actions = {
     end
     s.generate()
   end),
+
+  yazi_open = "<cmd>Yazi<cr>",
 }
 
 function M.load_keys()
@@ -142,6 +152,7 @@ function M.load_keys()
   map("n", "<leader>om", actions.open_mini_files, { desc = "Open mini files" })
   map("n", "<leader>q", actions.quit, { desc = "Quit" })
   map("n", "<leader>ts", actions.toggle_sidebar, { desc = "Toggle Sidebar" })
+  map("n", "<leader>y", actions.yazi_open, { desc = "Open Yazi" })
 
   -- window
   -- map({ "n", "t" }, "<leader>wh", actions.change_window_left, { desc = "Move left" })
