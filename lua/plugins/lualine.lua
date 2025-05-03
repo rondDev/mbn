@@ -183,6 +183,16 @@ local components = {
     color = "SLProgress",
     cond = nil,
   },
+  lsp_signature_help = {
+    function()
+      if not pcall(require, "lsp_signature") then
+        print("....?")
+        return
+      end
+      local sig = require("lsp_signature").status_line(200)
+      return sig.label .. " 🐼 " .. sig.hint
+    end,
+  },
 }
 
 return {
@@ -205,7 +215,9 @@ return {
             -- right_padding = 2,
           },
         },
-        lualine_b = {},
+        lualine_b = {
+          -- components.lsp_signature_help,
+        },
         lualine_c = {},
 
         lualine_x = { components.diagnostics, components.lsp, components.spaces, components.filetype },
