@@ -199,6 +199,13 @@ return {
         desc = "Find Files",
       },
       {
+        "<c-i>",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "Find Files",
+      },
+      {
         "<leader>fg",
         function()
           Snacks.picker.git_files()
