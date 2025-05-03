@@ -811,4 +811,19 @@ return {
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   },
+  -- ultra folds in neovim
+  {
+    "kevinhwang91/nvim-ufo",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      --- @diagnostic disable: missing-fields
+      --- @diagnostic disable: unused-local
+      require("ufo").setup({
+        provider_selector = function(_bufnr, _filetype, _buftype)
+          return { "treesitter", "indent" }
+        end,
+      })
+    end,
+  },
 }
