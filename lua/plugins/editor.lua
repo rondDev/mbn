@@ -737,7 +737,8 @@ return {
       -- TODO: Remove this when issue is resolved
       -- https://github.com/NeogitOrg/neogit/issues/1691
       -- Related: https://github.com/neovim/neovim/issues/33067
-      disable_signs = true,
+      -- NOTE: Only fixed in dev build NVIM v0.12.0-dev-124+g4a706a7092
+      disable_signs = false,
     },
   },
 
