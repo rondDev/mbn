@@ -799,6 +799,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
+        rust = { "rustfmt", lsp_format = "fallback" },
         javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
       },
       -- Set default options
