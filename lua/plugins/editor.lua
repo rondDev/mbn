@@ -657,13 +657,6 @@ return {
       })
     end,
   },
-  -- escape with jk
-  {
-    "max397574/better-escape.nvim",
-    config = function()
-      require("better_escape").setup()
-    end,
-  },
   {
     "MysticalDevil/inlay-hints.nvim",
     event = "LspAttach",
