@@ -821,6 +821,7 @@ return {
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   },
+  -- { "akinsho/toggleterm.nvim", version = "*", config = true },
   -- ultra folds in neovim
   {
     "kevinhwang91/nvim-ufo",
