@@ -4,7 +4,43 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "folke/lazydev.nvim", opts = {} },
-      "saghen/blink.cmp",
+      {
+        "saghen/blink.cmp",
+        opts = {
+          completion = {
+            documentation = {
+              window = {
+                -- border = "rounded",
+                winblend = 15,
+              },
+            },
+            menu = {
+              draw = { treesitter = { "lsp" } },
+              border = "rounded",
+              winblend = 15,
+            },
+          },
+          signature = {
+            enabled = true,
+            window = {
+              border = "rounded",
+              winblend = 15,
+            },
+          },
+        },
+        dependencies = {
+          "moyiz/blink-emoji.nvim",
+          "mikavilpas/blink-ripgrep.nvim",
+          {
+            "uga-rosa/cmp-dictionary",
+            dependencies = { "saghen/blink.compat" },
+          },
+          {
+            "chrisgrieser/cmp-nerdfont", -- trigger with :nf-
+            dependencies = { "saghen/blink.compat" },
+          },
+        },
+      },
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
       "williamboman/mason.nvim",
