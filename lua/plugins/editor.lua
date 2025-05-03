@@ -28,16 +28,16 @@ return {
     version = false,
     opts = {},
   },
-  {
-    "echasnovski/mini.files",
-    version = false,
-    priority = 100,
-    opts = {
-      options = {
-        use_as_default_explorer = false,
-      },
-    },
-  },
+  -- {
+  --   "echasnovski/mini.files",
+  --   version = false,
+  --   priority = 100,
+  --   opts = {
+  --     options = {
+  --       use_as_default_explorer = false,
+  --     },
+  --   },
+  -- },
   {
     "stevearc/oil.nvim",
     opts = {
