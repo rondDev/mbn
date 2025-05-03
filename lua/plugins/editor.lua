@@ -41,6 +41,7 @@ return {
   {
     "stevearc/oil.nvim",
     opts = {
+      disable_default_keybindings = false,
       columns = {
         "icon",
         -- "permissions",
