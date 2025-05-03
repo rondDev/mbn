@@ -125,7 +125,7 @@ return {
           "mdx_analyzer",
           "nil_ls",
           "prismals",
-          "rust_analyzer",
+          -- "rust_analyzer",
           "sqls",
           "svelte",
           "tailwindcss",
