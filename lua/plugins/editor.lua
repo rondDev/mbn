@@ -838,4 +838,5 @@ return {
     end,
   },
   { "norcalli/nvim-colorizer.lua" },
+  { "lambdalisue/vim-suda" },
 }
