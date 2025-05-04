@@ -21,7 +21,7 @@ return {
             },
           },
           signature = {
-            enabled = true,
+            enabled = false,
             window = {
               border = "rounded",
               winblend = 15,
@@ -173,8 +173,8 @@ return {
           end,
           ts_ls = function()
             local vue_typescript_plugin = require("mason-registry")
-              .get_package("vue-language-server")
-              :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
+                .get_package("vue-language-server")
+                :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
 
             require("lspconfig").ts_ls.setup({
               init_options = {
