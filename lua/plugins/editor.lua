@@ -838,5 +838,10 @@ return {
     end,
   },
   { "norcalli/nvim-colorizer.lua" },
-  { "lambdalisue/vim-suda" },
+  {
+    "lambdalisue/vim-suda",
+    init = function()
+      vim.g.suda_smart_edit = 1
+    end,
+  },
 }
