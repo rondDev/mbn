@@ -245,6 +245,22 @@ return {
           { "location" },
         },
       },
+      tabline = {
+        lualine_a = { { "filename", path = 1 }, { "filetype", icon_only = true } },
+        lualine_b = {
+          -- { "branch", icon = "", fmt = truncate_branch_name },
+          -- { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+        },
+        lualine_c = {},
+        -- lualine_x = { "b:gitsigns_status" },
+        lualine_y = {
+          -- {
+          -- 	"diff",
+          -- 	symbols = { added = icons.git.added, modified = icons.git.modified, removed = icons.git.removed },
+          -- },
+        },
+        lualine_z = {},
+      },
     },
   },
 }
