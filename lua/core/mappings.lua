@@ -9,8 +9,8 @@ end
 _G.actions = {
   change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
   change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
-  change_window_up = "<cmd>NvimTmuxNavigateDown<cr>",
-  change_window_down = "<cmd>NvimTmuxNavigateUp<cr>",
+  change_window_up = "<cmd>NvimTmuxNavigateUp<cr>",
+  change_window_down = "<cmd>NvimTmuxNavigateDown<cr>",
   close_window = "<cmd>wincmd q<cr>",
   move_window_left = "<cmd>wincmd H<cr>",
   move_window_right = "<cmd>wincmd L<cr>",
@@ -69,11 +69,11 @@ _G.actions = {
     end
   end),
 
-  move_line_up = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', -- opts = { expr = true }
+  move_line_up = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',   -- opts = { expr = true }
   move_line_down = 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', -- opts = { expr = true }
 
-  increase_indent_line = ">gv", -- moves and enters visual mode
-  decrease_indent_line = "<gv", -- moves and enters visual mode
+  increase_indent_line = ">gv",                                    -- moves and enters visual mode
+  decrease_indent_line = "<gv",                                    -- moves and enters visual mode
 
   move_selected_text_down = ":m '>+1<CR>gv=gv",
   move_selected_text_up = ":m '<-2<CR>gv=gv",
@@ -176,4 +176,5 @@ function M.load_keys()
 
   -- localleader prefixed keys
 end
+
 return M
