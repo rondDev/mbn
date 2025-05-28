@@ -200,13 +200,6 @@ return {
         desc = "Find Files",
       },
       {
-        "<c-i>",
-        function()
-          Snacks.picker.files()
-        end,
-        desc = "Find Files",
-      },
-      {
         "<leader>fg",
         function()
           Snacks.picker.git_files()
@@ -802,6 +795,7 @@ return {
         python = { "isort", "black" },
         rust = { "rustfmt", lsp_format = "fallback" },
         javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+        svelte = { "biome", stop_after_first = true }
       },
       -- Set default options
       default_format_opts = {
@@ -844,4 +838,13 @@ return {
       vim.g.suda_smart_edit = 1
     end,
   },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  }
 }
