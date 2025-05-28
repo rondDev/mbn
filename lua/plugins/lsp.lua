@@ -11,13 +11,13 @@ return {
             documentation = {
               window = {
                 -- border = "rounded",
-                winblend = 15,
+                winblend = 10,
               },
             },
             menu = {
               draw = { treesitter = { "lsp" } },
-              border = "rounded",
-              winblend = 15,
+              -- border = "rounded",
+              winblend = 10,
             },
           },
           signature = {
@@ -81,9 +81,12 @@ return {
       capabilities = vim.tbl_deep_extend("force", capabilities, {
         textDocument = {
           foldingRange = {
-            dynamicRegistration = false,
+            dynamicRegistration = true,
             lineFoldingOnly = true,
           },
+        },
+        workspace = {
+          didChangeWatchedFiles = vim.fn.has("nvim-0.10") == 0 and { dynamicRegistration = true },
         },
       })
 
@@ -109,6 +112,7 @@ return {
 
       require("mason").setup()
       require("mason-lspconfig").setup({
+        automatic_enable = true,
         automatic_installation = true,
         ensure_installed = {
           "astro",
@@ -135,6 +139,7 @@ return {
           "unocss",
           "v_analyzer",
           "volar",
+          -- "vtsls",
           "zls",
         },
         handlers = {
@@ -197,6 +202,58 @@ return {
               },
             })
           end,
+          vtsls = function()
+            local vue_typescript_plugin = require("mason-registry")
+                .get_package("vue-language-server")
+                :get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
+            require("lspconfig").vtsls.setup({
+              init_options = {
+                plugins = {
+                  {
+                    name = "@vue/typescript-plugin",
+                    location = vue_typescript_plugin,
+                    languages = { "javascript", "typescript", "vue" },
+                  },
+                },
+              },
+              filetypes = {
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescriptreact",
+                "typescript.tsx",
+                "vue",
+              },
+              settings = {
+                complete_function_calls = true,
+                vtsls = {
+                  enableMoveToFileCodeAction = true,
+                  autoUseWorkspaceTsdk = true,
+                  experimental = {
+                    maxInlayHintLength = 30,
+                    completion = {
+                      enableServerSideFuzzyMatch = true,
+                    },
+                  },
+                },
+                typescript = {
+                  updateImportsOnFileMove = { enabled = "always" },
+                  suggest = {
+                    completeFunctionCalls = true,
+                  },
+                  inlayHints = {
+                    enumMemberValues = { enabled = true },
+                    functionLikeReturnTypes = { enabled = true },
+                    parameterNames = { enabled = "literals" },
+                    parameterTypes = { enabled = true },
+                    propertyDeclarationTypes = { enabled = true },
+                    variableTypes = { enabled = false },
+                  },
+                },
+              },
+            })
+          end
         },
       })
     end,
@@ -229,14 +286,22 @@ return {
       require("lsp_signature").setup(opts)
     end,
   },
+  -- {
+  --   'nvimdev/lspsaga.nvim',
+  --   config = function()
+  --     require('lspsaga').setup({})
+  --   end,
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter', -- optional
+  --     'nvim-tree/nvim-web-devicons',     -- optional
+  --   }
+  -- }
+
   {
-    'nvimdev/lspsaga.nvim',
-    config = function()
-      require('lspsaga').setup({})
-    end,
+    "LunarVim/breadcrumbs.nvim",
     dependencies = {
-      'nvim-treesitter/nvim-treesitter', -- optional
-      'nvim-tree/nvim-web-devicons',     -- optional
-    }
+      { "SmiteshP/nvim-navic" },
+    },
+    opts = {}
   }
 }
