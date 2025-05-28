@@ -37,19 +37,19 @@ opt.mouse = "a" -- Enable mouse mode
 opt.ignorecase = true
 opt.smartcase = true
 
-opt.updatetime = 50 -- Decrease updatetime to 50ms
+opt.updatetime = 50                         -- Decrease updatetime to 50ms
 
 opt.completeopt = { "menuone", "noselect" } -- Set completeopt to have a better completion experience
 
-opt.undofile = true -- Enable persistent undo history
+opt.undofile = true                         -- Enable persistent undo history
 
-opt.termguicolors = true -- Enable 24-bit color
+opt.termguicolors = true                    -- Enable 24-bit color
 
-opt.signcolumn = "yes" -- Enable the sign column to prevent the screen from jumping
+opt.signcolumn = "yes"                      -- Enable the sign column to prevent the screen from jumping
 
-opt.clipboard = "unnamed,unnamedplus" -- Enable access to System Clipboard
+opt.clipboard = "unnamed,unnamedplus"       -- Enable access to System Clipboard
 
-opt.cursorline = true -- Enable cursor line highlight
+opt.cursorline = true                       -- Enable cursor line highlight
 
 -- Set fold settings
 -- These options were reccommended by nvim-ufo
@@ -77,6 +77,8 @@ opt.showmode = false
 opt.showtabline = 2
 
 opt.conceallevel = 3
+
+opt.numberwidth = 6
 
 -- custom function to save and format
 vim.g.format_save = true
