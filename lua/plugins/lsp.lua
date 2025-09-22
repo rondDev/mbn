@@ -130,7 +130,7 @@ return {
           "nil_ls",
           "prismals",
           -- "rust_analyzer",
-          "sqls",
+          -- "sqls",
           "svelte",
           "tailwindcss",
           "taplo",
