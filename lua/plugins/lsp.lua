@@ -1,15 +1,11 @@
 vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/Saghen/blink.cmp" },
+	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range(">= 1.0.0") },
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/SmiteshP/nvim-navic" },
 	{ src = "https://github.com/LunarVim/breadcrumbs.nvim" },
 })
 
-if vim.fn.isdirectory("/home/rond/.local/share/nvim/site/pack/core/opt/blink.cmp/target") ~= 1 then
-	vim.cmd("lcd ~/.local/share/nvim/site/pack/core/opt/blink.cmp/")
-	vim.system({ "cargo", "build", "--release" })
-end
 require("blink.cmp").setup({})
 
 vim.lsp.enable({ "lua_ls", "svelte" })
