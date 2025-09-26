@@ -1,3 +1,3 @@
 require("core.default")
-require("core.lazy")
+require("core.plugins")
 require("core.mappings").load_keys()
