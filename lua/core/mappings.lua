@@ -53,6 +53,14 @@ _G.actions = {
     s.picker.buffers()
   end),
 
+  snacks_grep = wrap(function()
+    local s = require("snacks")
+    if not s then
+      print("Snacks could not be loaded")
+    end
+    s.picker.grep()
+  end),
+
   file_save = "<cmd>w<cr>",
   no_highlight = "<cmd>noh<cr>",
 
@@ -165,6 +173,7 @@ function M.load_keys()
   -- Snacks
   map("n", "<leader><space>", actions.snacks_git_files ,{ desc = "Git Files" })
   map("n", "<leader>,", actions.snacks_buffers ,{ desc = "Buffers" })
+  map("n", "<leader>sg", actions.snacks_grep ,{ desc = "Grep" })
   map("n", "<leader>d", actions.floating_diagnostics, { desc = "Floating Diagnostics" })
   map("n", "<leader>fs", actions.file_save, { desc = "Save file" })
   -- map("n", "<leader>no", actions.no_highlight, { desc = "No highlight" })
