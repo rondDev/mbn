@@ -2,6 +2,7 @@ vim.pack.add({
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/folke/which-key.nvim" },
   { src = "https://github.com/NeogitOrg/neogit" },
+  {	src = "https://github.com/alexghergh/nvim-tmux-navigation" },
 
 })
 
@@ -35,3 +36,4 @@ require("oil").setup({
 })
 require("which-key").setup({})
 require("neogit").setup({})
+require("nvim-tmux-navigation")
