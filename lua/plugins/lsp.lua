@@ -43,5 +43,13 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.INFO] = " ",
 		},
 	},
+	ui = {
+		windows = {
+			default_options = {
+				border = "single",
+			},
+		},
+	},
 })
+
 require("breadcrumbs").setup({})
