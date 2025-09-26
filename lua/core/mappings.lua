@@ -47,7 +47,12 @@ _G.actions = {
 	redo = "<C-r>",
 
 	snacks_git_files = wrap(function()
-		req("snacks").picker.git_files({ untracked = true })
+		local git_dir = vim.fn.finddir(".git", vim.fn.getcwd() .. ";")
+		if git_dir ~= "" then
+			req("snacks").picker.git_files({ untracked = true })
+		else
+			req("snacks").picker.smart()
+		end
 	end),
 
 	snacks_buffers = wrap(function()
@@ -60,6 +65,10 @@ _G.actions = {
 
 	snacks_notifications = wrap(function()
 		req("snacks").picker.notifications()
+	end),
+
+	snacks_colorschemes = wrap(function()
+		req("snacks").picker.colorschemes()
 	end),
 
 	file_save = "<cmd>w<cr>",
@@ -155,6 +164,7 @@ function M.load_keys()
 	map("n", "<leader><space>", actions.snacks_git_files, { desc = "Git Files" })
 	map("n", "<leader>,", actions.snacks_buffers, { desc = "Buffers" })
 	map("n", "<leader>n", actions.snacks_notifications, { desc = "Buffers" })
+	map("n", "<leader>uc", actions.snacks_colorschemes, { desc = "Buffers" })
 	map("n", "<leader>sg", actions.snacks_grep, { desc = "Grep" })
 	map("n", "<leader>d", actions.floating_diagnostics, { desc = "Floating Diagnostics" })
 	map("n", "<leader>fs", actions.file_save, { desc = "Save file" })
