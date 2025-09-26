@@ -1,10 +1,10 @@
-return {
-  {
-    "nosduco/remote-sshfs.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    opts = {
-      -- Refer to the configuration section below
-      -- or leave empty for defaults
-    },
-  }
-}
+vim.pack.add({
+  { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/folke/which-key.nvim" },
+  { src = "https://github.com/NeogitOrg/neogit" },
+
+})
+
+require("oil").setup({})
+require("which-key").setup({})
+require("neogit").setup({})
