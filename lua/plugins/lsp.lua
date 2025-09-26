@@ -4,11 +4,11 @@ vim.pack.add({
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/SmiteshP/nvim-navic" },
 	{ src = "https://github.com/LunarVim/breadcrumbs.nvim" },
-})
+}, { confirm = false })
 
 require("blink.cmp").setup({})
 
-vim.lsp.enable({ "lua_ls", "svelte" })
+vim.lsp.enable({ "biome", "lua_ls", "svelte" })
 
 vim.lsp.config("lua_ls", {
 	settings = {
@@ -21,6 +21,13 @@ vim.lsp.config("lua_ls", {
 			},
 		},
 	},
+})
+
+vim.lsp.config("biome", {
+	root_dir = function()
+		return vim.fs.dirname(vim.fs.find("biome.json", { path = vim.fn.getcwd(), upward = true })[1])
+	end,
+	workspace_required = false,
 })
 
 vim.diagnostic.config({
