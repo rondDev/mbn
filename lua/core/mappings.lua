@@ -1,187 +1,191 @@
 local M = {}
 
 local function wrap(f)
-  return function()
-    f()
-  end
+	return function()
+		f()
+	end
 end
 
 local function req(r)
-  local s = require(r)
-  if not s then
-    print(string.format("%s could not be loaded", r))
-    return
-  end
-  return s
+	local s = require(r)
+	if not s then
+		print(string.format("%s could not be loaded", r))
+		return
+	end
+	return s
 end
 
 _G.actions = {
-  change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
-  change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
-  change_window_up = "<cmd>NvimTmuxNavigateUp<cr>",
-  change_window_down = "<cmd>NvimTmuxNavigateDown<cr>",
-  close_window = "<cmd>wincmd q<cr>",
-  move_window_left = "<cmd>wincmd H<cr>",
-  move_window_right = "<cmd>wincmd L<cr>",
-  move_window_up = "<cmd>wincmd K<cr>",
-  move_window_down = "<cmd>wincmd J<cr>",
+	change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
+	change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
+	change_window_up = "<cmd>NvimTmuxNavigateUp<cr>",
+	change_window_down = "<cmd>NvimTmuxNavigateDown<cr>",
+	close_window = "<cmd>wincmd q<cr>",
+	move_window_left = "<cmd>wincmd H<cr>",
+	move_window_right = "<cmd>wincmd L<cr>",
+	move_window_up = "<cmd>wincmd K<cr>",
+	move_window_down = "<cmd>wincmd J<cr>",
 
-  split_window_vertically = "<cmd>vsplit<cr>",
-  split_window_horizontally = "<cmd>split<cr>",
-  window_quit = "<cmd>q<cr>",
+	split_window_vertically = "<cmd>vsplit<cr>",
+	split_window_horizontally = "<cmd>split<cr>",
+	window_quit = "<cmd>q<cr>",
 
-  go_start_of_line = "^",
-  go_end_of_line = "$",
+	go_start_of_line = "^",
+	go_end_of_line = "$",
 
-  repeat_last_search_center = "nzz",
-  repeat_last_search_center_reverse = "Nzz",
+	repeat_last_search_center = "nzz",
+	repeat_last_search_center_reverse = "Nzz",
 
-  replace_under_cursor = wrap(function()
-    local c = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
-    local keys = vim.api.nvim_replace_termcodes(c, true, false, true)
-    vim.api.nvim_feedkeys(keys, "n", false)
-  end),
+	replace_under_cursor = wrap(function()
+		local c = ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>"
+		local keys = vim.api.nvim_replace_termcodes(c, true, false, true)
+		vim.api.nvim_feedkeys(keys, "n", false)
+	end),
 
-  resize_equal_buffer_splits = "<C-w>=",
+	resize_equal_buffer_splits = "<C-w>=",
 
-  redo = "<C-r>",
+	redo = "<C-r>",
 
-  snacks_git_files = wrap(function()
-    req("snacks").picker.git_files({ untracked = true })
-  end),
+	snacks_git_files = wrap(function()
+		req("snacks").picker.git_files({ untracked = true })
+	end),
 
-  snacks_buffers = wrap(function()
-    req("snacks").picker.buffers()
-  end),
+	snacks_buffers = wrap(function()
+		req("snacks").picker.buffers()
+	end),
 
-  snacks_grep = wrap(function()
-    req("snacks").picker.grep()
-  end),
+	snacks_grep = wrap(function()
+		req("snacks").picker.grep()
+	end),
 
-  file_save = "<cmd>w<cr>",
-  no_highlight = "<cmd>noh<cr>",
+	snacks_notifications = wrap(function()
+		req("snacks").picker.notifications()
+	end),
 
-  open_oil = "<cmd>Oil<cr>",
-  open_mini_files = wrap(function()
-    req("mini.files").open()
-  end),
+	file_save = "<cmd>w<cr>",
+	no_highlight = "<cmd>noh<cr>",
 
-  quit = "<cmd>q<cr>",
-  write_quit = "<cmd>xa<cr>",
+	open_oil = "<cmd>Oil<cr>",
+	open_mini_files = wrap(function()
+		req("mini.files").open()
+	end),
 
-  toggle_sidebar = wrap(function()
-    req("sidebar-nvim").toggle()
-  end),
+	quit = "<cmd>q<cr>",
+	write_quit = "<cmd>xa<cr>",
 
-  toggle_terminal = wrap(function()
-    local s = require("toggleterm")
-    if not s then
-      print("toggleterm could not be found")
-      return
-    end
-  end),
+	toggle_sidebar = wrap(function()
+		req("sidebar-nvim").toggle()
+	end),
 
-  move_line_up = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',   -- opts = { expr = true }
-  move_line_down = 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', -- opts = { expr = true }
+	toggle_terminal = wrap(function()
+		local s = require("toggleterm")
+		if not s then
+			print("toggleterm could not be found")
+			return
+		end
+	end),
 
-  increase_indent_line = ">gv",                                    -- moves and enters visual mode
-  decrease_indent_line = "<gv",                                    -- moves and enters visual mode
+	move_line_up = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', -- opts = { expr = true }
+	move_line_down = 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', -- opts = { expr = true }
 
-  move_selected_text_down = ":m '>+1<CR>gv=gv",
-  move_selected_text_up = ":m '<-2<CR>gv=gv",
+	increase_indent_line = ">gv", -- moves and enters visual mode
+	decrease_indent_line = "<gv", -- moves and enters visual mode
 
-  paste_no_replace = 'p:let @+=@0<CR>:let @"=@0<CR>',
+	move_selected_text_down = ":m '>+1<CR>gv=gv",
+	move_selected_text_up = ":m '<-2<CR>gv=gv",
 
-  terminal_normal_mode = "[[<C-\\><C-n>]]",
+	paste_no_replace = 'p:let @+=@0<CR>:let @"=@0<CR>',
 
-  floating_diagnostics = wrap(function()
-    vim.diagnostic.open_float({
-      border = "rounded",
-    })
-  end),
+	terminal_normal_mode = "[[<C-\\><C-n>]]",
 
-  lsp_signature_help = vim.lsp.buf.signature_help,
-  lsp_code_action = vim.lsp.buf.code_action,
-  lsp_rename = vim.lsp.buf.rename,
+	floating_diagnostics = wrap(function()
+		vim.diagnostic.open_float({
+			border = "rounded",
+		})
+	end),
 
-  neogit_open = "<cmd>Neogit<cr>",
-  neogit_open_float = wrap(function()
-    req("neogit").open({ kind = "float" })
-  end),
-  neogit_open_commit = "<cmd>Neogit commit<cr>",
+	lsp_signature_help = vim.lsp.buf.signature_help,
+	lsp_code_action = vim.lsp.buf.code_action,
+	lsp_rename = vim.lsp.buf.rename,
 
-  generate_docs = wrap(function()
-    req("neogen").generate()
-  end),
+	neogit_open = "<cmd>Neogit<cr>",
+	neogit_open_float = wrap(function()
+		req("neogit").open({ kind = "float" })
+	end),
+	neogit_open_commit = "<cmd>Neogit commit<cr>",
 
-  yazi_open = "<cmd>Yazi<cr>",
+	generate_docs = wrap(function()
+		req("neogen").generate()
+	end),
+
+	yazi_open = "<cmd>Yazi<cr>",
 }
 
 function M.load_keys()
-  local map = vim.keymap.set
+	local map = vim.keymap.set
 
-  local actions = _G.actions
+	local actions = _G.actions
 
+	map({ "n", "t" }, "<C-h>", actions.change_window_left, { desc = "Move left" })
+	map({ "n", "t" }, "<C-l>", actions.change_window_right, { desc = "Move right" })
+	map({ "n", "t" }, "<C-k>", actions.change_window_up, { desc = "Move up" })
+	map({ "n", "t" }, "<C-j>", actions.change_window_down, { desc = "Move down" })
 
-  map({ "n", "t" }, "<C-h>", actions.change_window_left, { desc = "Move left" })
-  map({ "n", "t" }, "<C-l>", actions.change_window_right, { desc = "Move right" })
-  map({ "n", "t" }, "<C-k>", actions.change_window_up, { desc = "Move up" })
-  map({ "n", "t" }, "<C-j>", actions.change_window_down, { desc = "Move down" })
+	map({ "n", "v" }, "H", actions.go_start_of_line, { desc = "Jump to start of line" })
+	map({ "n", "v" }, "L", actions.go_end_of_line, { desc = "Jump to end of line" })
 
-  map({ "n", "v" }, "H", actions.go_start_of_line, { desc = "Jump to start of line" })
-  map({ "n", "v" }, "L", actions.go_end_of_line, { desc = "Jump to end of line" })
+	map({ "n", "x" }, "j", actions.move_line_down, { desc = "Move down", expr = true })
+	map({ "n", "x" }, "k", actions.move_line_up, { desc = "Move down", expr = true })
 
-  map({ "n", "x" }, "j", actions.move_line_down, { desc = "Move down", expr = true })
-  map({ "n", "x" }, "k", actions.move_line_up, { desc = "Move down", expr = true })
+	map("v", ">", actions.increase_indent_line, { desc = "Increase line indentation" })
+	map("v", "<", actions.decrease_indent_line, { desc = "Decrease line indentation" })
 
-  map("v", ">", actions.increase_indent_line, { desc = "Increase line indentation" })
-  map("v", "<", actions.decrease_indent_line, { desc = "Decrease line indentation" })
+	map("v", "<A-j>", actions.move_selected_text_down, { desc = "Move selected line down", expr = true })
+	map("v", "<A-k>", actions.move_selected_text_up, { desc = "Move selected line up", expr = true })
 
-  map("v", "<A-j>", actions.move_selected_text_down, { desc = "Move selected line down", expr = true })
-  map("v", "<A-k>", actions.move_selected_text_up, { desc = "Move selected line up", expr = true })
+	map("x", "p", actions.paste_no_replace, { desc = "Paste without replacing" })
 
-  map("x", "p", actions.paste_no_replace, { desc = "Paste without replacing" })
+	map("n", "U", actions.redo, { desc = "Redo" })
 
-  map("n", "U", actions.redo, { desc = "Redo" })
+	map("n", "n", actions.repeat_last_search_center, { desc = "Repeat last search and center" })
+	map("n", "N", actions.repeat_last_search_center_reverse, { desc = "Repeat last search and center (reverse)" })
 
-  map("n", "n", actions.repeat_last_search_center, { desc = "Repeat last search and center" })
-  map("n", "N", actions.repeat_last_search_center_reverse, { desc = "Repeat last search and center (reverse)" })
+	-- leader prefixed keys
+	-- Snacks
+	map("n", "<leader><space>", actions.snacks_git_files, { desc = "Git Files" })
+	map("n", "<leader>,", actions.snacks_buffers, { desc = "Buffers" })
+	map("n", "<leader>n", actions.snacks_notifications, { desc = "Buffers" })
+	map("n", "<leader>sg", actions.snacks_grep, { desc = "Grep" })
+	map("n", "<leader>d", actions.floating_diagnostics, { desc = "Floating Diagnostics" })
+	map("n", "<leader>fs", actions.file_save, { desc = "Save file" })
+	-- map("n", "<leader>no", actions.no_highlight, { desc = "No highlight" })
+	map("n", "<leader>oo", actions.open_oil, { desc = "Open oil" })
+	map("n", "<leader>om", actions.open_mini_files, { desc = "Open mini files" })
+	map("n", "<leader>q", actions.quit, { desc = "Quit" })
+	map("n", "<leader>ts", actions.toggle_sidebar, { desc = "Toggle Sidebar" })
+	map("n", "<leader>y", actions.yazi_open, { desc = "Open Yazi" })
 
-  -- leader prefixed keys
-  -- Snacks
-  map("n", "<leader><space>", actions.snacks_git_files ,{ desc = "Git Files" })
-  map("n", "<leader>,", actions.snacks_buffers ,{ desc = "Buffers" })
-  map("n", "<leader>sg", actions.snacks_grep ,{ desc = "Grep" })
-  map("n", "<leader>d", actions.floating_diagnostics, { desc = "Floating Diagnostics" })
-  map("n", "<leader>fs", actions.file_save, { desc = "Save file" })
-  -- map("n", "<leader>no", actions.no_highlight, { desc = "No highlight" })
-  map("n", "<leader>oo", actions.open_oil, { desc = "Open oil" })
-  map("n", "<leader>om", actions.open_mini_files, { desc = "Open mini files" })
-  map("n", "<leader>q", actions.quit, { desc = "Quit" })
-  map("n", "<leader>ts", actions.toggle_sidebar, { desc = "Toggle Sidebar" })
-  map("n", "<leader>y", actions.yazi_open, { desc = "Open Yazi" })
+	-- window
+	-- map({ "n", "t" }, "<leader>wh", actions.change_window_left, { desc = "Move left" })
+	-- map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
+	-- map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
+	-- map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
+	map({ "n", "t" }, "<leader>wv", actions.split_window_vertically, { desc = "Split Window Vertically" })
+	map({ "n", "t" }, "<leader>wh", actions.split_window_horizontally, { desc = "Split Window Horizontally" })
+	map({ "n", "t" }, "<leader>wq", actions.window_quit, { desc = "Quit Window" })
 
-  -- window
-  -- map({ "n", "t" }, "<leader>wh", actions.change_window_left, { desc = "Move left" })
-  -- map({ "n", "t" }, "<leader>wl", actions.change_window_right, { desc = "Move right" })
-  -- map({ "n", "t" }, "<leader>wk", actions.change_window_up, { desc = "Move up" })
-  -- map({ "n", "t" }, "<leader>wj", actions.change_window_down, { desc = "Move down" })
-  map({ "n", "t" }, "<leader>wv", actions.split_window_vertically, { desc = "Split Window Vertically" })
-  map({ "n", "t" }, "<leader>wh", actions.split_window_horizontally, { desc = "Split Window Horizontally" })
-  map({ "n", "t" }, "<leader>wq", actions.window_quit, { desc = "Quit Window" })
+	-- lsp
+	map("n", "<leader>ca", actions.lsp_code_action, { desc = "Code Action" })
+	map("n", "<leader>cr", actions.lsp_rename, { desc = "Code Rename" })
+	map("n", "gK", actions.lsp_signature_help, { desc = "Go to signature help" })
+	map("n", "<leader>cd", actions.generate_docs, { desc = "Generate docs" })
 
-  -- lsp
-  map("n", "<leader>ca", actions.lsp_code_action, { desc = "Code Action" })
-  map("n", "<leader>cr", actions.lsp_rename, { desc = "Code Rename" })
-  map("n", "gK", actions.lsp_signature_help, { desc = "Go to signature help" })
-  map("n", "<leader>cd", actions.generate_docs, { desc = "Generate docs" })
+	-- git
+	map("n", "<leader>gg", actions.neogit_open, { desc = "Open Neogit" })
+	map("n", "<leader>gf", actions.neogit_open_float, { desc = "Open Neogit (float)" })
+	map("n", "<leader>gc", actions.neogit_open_commit, { desc = "Open Neogit (commit)" })
 
-  -- git
-  map("n", "<leader>gg", actions.neogit_open, { desc = "Open Neogit" })
-  map("n", "<leader>gf", actions.neogit_open_float, { desc = "Open Neogit (float)" })
-  map("n", "<leader>gc", actions.neogit_open_commit, { desc = "Open Neogit (commit)" })
-
-  -- localleader prefixed keys
+	-- localleader prefixed keys
 end
 
 return M
