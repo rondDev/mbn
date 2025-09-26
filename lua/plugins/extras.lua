@@ -5,7 +5,9 @@ vim.pack.add({
 	{ src = "https://github.com/alexghergh/nvim-tmux-navigation" },
 	{ src = "https://github.com/wakatime/vim-wakatime" },
 	{ src = "https://github.com/lambdalisue/vim-suda" },
-})
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/kevinhwang91/nvim-bqf" },
+}, { confirm = false })
 
 require("oil").setup({
 	disable_default_keybindings = false,
@@ -38,5 +40,6 @@ require("oil").setup({
 require("which-key").setup({})
 require("neogit").setup({})
 require("nvim-tmux-navigation")
+require("fidget").setup({})
 
 vim.g.suda_smart_edit = 1
