@@ -6,7 +6,9 @@ vim.pack.add({
 	{ src = "https://github.com/folke/flash.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/windwp/nvim-autopairs" },
-})
+	{ src = "https://github.com/folke/ts-comments.nvim" },
+	{ src = "https://github.com/HiPhish/rainbow-delimiters.nvim" },
+}, { confirm = false })
 
 require("conform").setup({
 	-- Define your formatters
@@ -39,5 +41,6 @@ require("flash").setup({
 		},
 	},
 })
+require("ts-comments").setup({})
 
 require("nvim-autopairs").setup({})
