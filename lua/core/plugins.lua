@@ -1,4 +1,5 @@
 require("plugins.deps")
+require("plugins.editor")
 require("plugins.extras")
 require("plugins.lsp")
 require("plugins.snacks")
