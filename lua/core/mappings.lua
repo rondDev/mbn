@@ -6,6 +6,15 @@ local function wrap(f)
   end
 end
 
+local function req(r)
+  local s = require(r)
+  if not s then
+    print(string.format("%s could not be loaded", r))
+    return
+  end
+  return s
+end
+
 _G.actions = {
   change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
   change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
@@ -38,27 +47,15 @@ _G.actions = {
   redo = "<C-r>",
 
   snacks_git_files = wrap(function()
-    local s = require("snacks")
-    if not s then
-      print("Snacks could not be loaded")
-    end
-    s.picker.git_files({ untracked = true })
+    req("snacks").picker.git_files({ untracked = true })
   end),
 
   snacks_buffers = wrap(function()
-    local s = require("snacks")
-    if not s then
-      print("Snacks could not be loaded")
-    end
-    s.picker.buffers()
+    req("snacks").picker.buffers()
   end),
 
   snacks_grep = wrap(function()
-    local s = require("snacks")
-    if not s then
-      print("Snacks could not be loaded")
-    end
-    s.picker.grep()
+    req("snacks").picker.grep()
   end),
 
   file_save = "<cmd>w<cr>",
@@ -66,23 +63,14 @@ _G.actions = {
 
   open_oil = "<cmd>Oil<cr>",
   open_mini_files = wrap(function()
-    local s = require("mini.files")
-    if not s then
-      print("mini.files could not be found")
-    end
-    s.open()
+    req("mini.files").open()
   end),
 
   quit = "<cmd>q<cr>",
   write_quit = "<cmd>xa<cr>",
 
   toggle_sidebar = wrap(function()
-    local s = require("sidebar-nvim")
-    if not s then
-      print("sidebar-nvim could not be found")
-      return
-    end
-    s.toggle()
+    req("sidebar-nvim").toggle()
   end),
 
   toggle_terminal = wrap(function()
@@ -118,22 +106,12 @@ _G.actions = {
 
   neogit_open = "<cmd>Neogit<cr>",
   neogit_open_float = wrap(function()
-    local s = require("neogit")
-    if not s then
-      print("neogit could not be found")
-      return
-    end
-    s.open({ kind = "float" })
+    req("neogit").open({ kind = "float" })
   end),
   neogit_open_commit = "<cmd>Neogit commit<cr>",
 
   generate_docs = wrap(function()
-    local s = require("neogen")
-    if not s then
-      print("neogen could not be found")
-      return
-    end
-    s.generate()
+    req("neogen").generate()
   end),
 
   yazi_open = "<cmd>Yazi<cr>",
