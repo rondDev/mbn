@@ -37,6 +37,22 @@ _G.actions = {
 
   redo = "<C-r>",
 
+  snacks_git_files = wrap(function()
+    local s = require("snacks")
+    if not s then
+      print("Snacks could not be loaded")
+    end
+    s.picker.git_files({ untracked = true })
+  end),
+
+  snacks_buffers = wrap(function()
+    local s = require("snacks")
+    if not s then
+      print("Snacks could not be loaded")
+    end
+    s.picker.buffers()
+  end),
+
   file_save = "<cmd>w<cr>",
   no_highlight = "<cmd>noh<cr>",
 
@@ -120,6 +136,7 @@ function M.load_keys()
 
   local actions = _G.actions
 
+
   map({ "n", "t" }, "<C-h>", actions.change_window_left, { desc = "Move left" })
   map({ "n", "t" }, "<C-l>", actions.change_window_right, { desc = "Move right" })
   map({ "n", "t" }, "<C-k>", actions.change_window_up, { desc = "Move up" })
@@ -145,6 +162,9 @@ function M.load_keys()
   map("n", "N", actions.repeat_last_search_center_reverse, { desc = "Repeat last search and center (reverse)" })
 
   -- leader prefixed keys
+  -- Snacks
+  map("n", "<leader><space>", actions.snacks_git_files ,{ desc = "Git Files" })
+  map("n", "<leader>,", actions.snacks_buffers ,{ desc = "Buffers" })
   map("n", "<leader>d", actions.floating_diagnostics, { desc = "Floating Diagnostics" })
   map("n", "<leader>fs", actions.file_save, { desc = "Save file" })
   -- map("n", "<leader>no", actions.no_highlight, { desc = "No highlight" })
