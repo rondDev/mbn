@@ -192,7 +192,7 @@ local components = {
 vim.pack.add({
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/f-person/git-blame.nvim" },
-})
+}, { confirm = false })
 
 require("lualine").setup({
 	sections = {
