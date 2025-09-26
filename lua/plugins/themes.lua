@@ -1,4 +1,5 @@
 vim.pack.add({
 	{ src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+	{ src = "https://github.com/nvimdev/porcelain.nvim" },
 })
 vim.cmd("colorscheme oxocarbon")
