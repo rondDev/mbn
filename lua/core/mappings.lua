@@ -16,6 +16,10 @@ local function req(r)
 end
 
 _G.actions = {
+	flash_jump = wrap(function()
+		req("flash").jump()
+	end),
+
 	change_window_left = "<cmd>NvimTmuxNavigateLeft<cr>",
 	change_window_right = "<cmd>NvimTmuxNavigateRight<cr>",
 	change_window_up = "<cmd>NvimTmuxNavigateUp<cr>",
@@ -158,6 +162,8 @@ function M.load_keys()
 
 	map("n", "n", actions.repeat_last_search_center, { desc = "Repeat last search and center" })
 	map("n", "N", actions.repeat_last_search_center_reverse, { desc = "Repeat last search and center (reverse)" })
+
+	map({ "n", "x", "o" }, "s", actions.flash_jump, { desc = "Flash jump" })
 
 	-- leader prefixed keys
 	-- Snacks
